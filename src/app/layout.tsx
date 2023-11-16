@@ -18,19 +18,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className="text-gray-900 bg-gray-100 ">
       <head>
         <link rel="icon" href="/icon-192x192.png" />
         <link rel="manifest" href="/manifest.json" />
       </head>
-      <body className={inter.className}>
-        <nav>
-          <Link href="/">Home</Link>
-          <Link href="/green">Green</Link>
-          <Link href="/blue">Blue</Link>
-        </nav>
-        {children}
-      </body>
+      <body className="flex w-full h-full">{children}</body>
     </html>
   );
 }
