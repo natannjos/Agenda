@@ -1,5 +1,6 @@
+"use client";
 import React from "react";
-import { FaPencil, FaTrash } from "react-icons/fa6";
+import { FaPencil, FaPlus, FaTrash } from "react-icons/fa6";
 
 // Mock de dados de eventos, substitua pela sua importação real do JSON
 // types.ts
@@ -13,6 +14,46 @@ export interface Contact {
 interface ContactListProps {
   contacts: Contact[];
 }
+
+const AddButton: React.FC = () => {
+  return (
+    <div>
+      <div className="tooltip absolute bottom-8 right-8" data-tip="Add Contato">
+        <button
+          className="btn btn-success text-white "
+          onClick={() => {
+            const element = document.getElementById(
+              "add_user_form"
+            ) as HTMLDialogElement;
+            if (element !== null) {
+              element.showModal();
+            }
+          }}
+        >
+          <FaPlus size={20} />
+        </button>
+      </div>
+
+      <dialog id="add_user_form" className="modal modal-bottom sm:modal-middle">
+        <div className="modal-box">
+          <h3 className="font-bold text-lg">Hello!</h3>
+          <p className="py-4">
+            Press ESC key or click the button below to close
+          </p>
+          <div className="modal-action">
+            <form method="dialog">
+              {/* if there is a button in form, it will close the modal */}
+              <button className="btn">Close</button>
+            </form>
+          </div>
+        </div>
+        <form method="dialog" className="modal-backdrop">
+          <button>close</button>
+        </form>
+      </dialog>
+    </div>
+  );
+};
 
 const ContactList: React.FC<ContactListProps> = ({ contacts }) => {
   return (
@@ -83,6 +124,7 @@ const Home: React.FC = () => {
     <div className="container mx-auto p-4">
       <h1 className="text-2xl font-bold mb-4">Minha Agenda</h1>
       <ContactList contacts={contacts} />
+      <AddButton />
     </div>
   );
 };
