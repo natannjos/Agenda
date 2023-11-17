@@ -1,12 +1,12 @@
 import React from "react";
-import { calendarData } from "@/app/data/calendarData";
+
 // Mock de dados de eventos, substitua pela sua importação real do JSON
 // types.ts
 export interface Contact {
   id: number;
   name: string;
-  phone: string;
   email: string;
+  createdAt?: Date;
 }
 
 interface ContactListProps {
@@ -20,7 +20,6 @@ const ContactList: React.FC<ContactListProps> = ({ contacts }) => {
         <div key={contact.id} className="border-b p-4 flex justify-between">
           <div>
             <p className="font-bold">{contact.name}</p>
-            <p>{contact.phone}</p>
             <p>{contact.email}</p>
           </div>
           <button className="bg-blue-500 text-white px-4 py-2 rounded">
@@ -37,14 +36,14 @@ const Home: React.FC = () => {
     {
       id: 1,
       name: "John Doe",
-      phone: "123-456-7890",
       email: "john@example.com",
+      createdAt: new Date(),
     },
     {
       id: 2,
       name: "Jane Smith",
-      phone: "234-567-8901",
       email: "jane@example.com",
+      createdAt: new Date(),
     },
     // Adicione mais contatos aqui...
   ];
