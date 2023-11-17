@@ -6,7 +6,7 @@ const ContactList: React.FC<ContactListProps> = ({
 }: ContactListProps) => {
   return (
     <div className="overflow-x-auto">
-      <table className="table table-zebra bg-base-100  ">
+      <table className="table table-xs md:table-md table-zebra bg-base-100  ">
         {/* head */}
         <thead>
           <tr>
@@ -24,12 +24,12 @@ const ContactList: React.FC<ContactListProps> = ({
               <td>{contact.createdAt?.toLocaleDateString()}</td>
               <td className="flex gap-2">
                 <div className="tooltip" data-tip="Editar">
-                  <button className="btn btn-sm btn-primary">
+                  <button className="btn btn-xs md:btn-sm btn-primary">
                     <FaPencil />
                   </button>
                 </div>
                 <div className="tooltip" data-tip="Excluir">
-                  <button className="btn btn-sm btn-error text-white">
+                  <button className="btn btn-xs md:btn-sm btn-error text-white">
                     <FaTrash />
                   </button>
                 </div>
