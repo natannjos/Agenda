@@ -1,4 +1,5 @@
 import React from "react";
+import { FaPencil, FaTrash } from "react-icons/fa6";
 
 // Mock de dados de eventos, substitua pela sua importação real do JSON
 // types.ts
@@ -15,18 +16,48 @@ interface ContactListProps {
 
 const ContactList: React.FC<ContactListProps> = ({ contacts }) => {
   return (
-    <div>
-      {contacts.map((contact) => (
-        <div key={contact.id} className="border-b p-4 flex justify-between">
-          <div>
-            <p className="font-bold">{contact.name}</p>
-            <p>{contact.email}</p>
-          </div>
-          <button className="bg-blue-500 text-white px-4 py-2 rounded">
-            Edit
-          </button>
-        </div>
-      ))}
+    <div className="overflow-x-auto">
+      <table className="table table-zebra bg-base-100  ">
+        {/* head */}
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Email</th>
+            <th>Data de Criação</th>
+            <th>Ações</th>
+          </tr>{" "}
+        </thead>
+        <tbody>
+          {contacts.map((contact) => (
+            <tr key={contact.id}>
+              <td>{contact.name}</td>
+              <td>{contact.email}</td>
+              <td>{contact.createdAt?.toLocaleDateString()}</td>
+              <td className="flex gap-2">
+                <div className="tooltip" data-tip="Editar">
+                  <button className="btn btn-sm btn-primary">
+                    <FaPencil />
+                  </button>
+                </div>
+                <div className="tooltip" data-tip="Excluir">
+                  <button className="btn btn-sm btn-error text-white">
+                    <FaTrash />
+                  </button>
+                </div>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+        {/* foot */}
+        <tfoot>
+          <tr>
+            <th>Nome</th>
+            <th>Email</th>
+            <th>Data de Criação</th>
+            <th>Ações</th>
+          </tr>
+        </tfoot>
+      </table>
     </div>
   );
 };
