@@ -1,4 +1,5 @@
 import { FaPlus } from "react-icons/fa6";
+import ContactForm from "./ContactForm";
 
 const AddButton: React.FC = () => {
   return (
@@ -21,10 +22,8 @@ const AddButton: React.FC = () => {
 
       <dialog id="add_user_form" className="modal modal-bottom sm:modal-middle">
         <div className="modal-box">
-          <h3 className="font-bold text-lg">Hello!</h3>
-          <p className="py-4">
-            Press ESC key or click the button below to close
-          </p>
+          <h3 className="font-bold text-lg">Adicione um novo contato</h3>
+          <ContactForm />
           <div className="modal-action">
             <form method="dialog">
               {/* if there is a button in form, it will close the modal */}
