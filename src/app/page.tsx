@@ -1,5 +1,6 @@
 "use client";
 import AddButton from "@/components/AddButton";
+import ContactForm from "@/components/ContactForm";
 import ContactList from "@/components/ContactList";
 import { Contact } from "@/interfaces/contact";
 import React from "react";

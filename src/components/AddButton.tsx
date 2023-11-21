@@ -3,7 +3,7 @@ import ContactForm from "./ContactForm";
 
 const AddButton: React.FC = () => {
   return (
-    <div>
+    <>
       <div className="tooltip absolute bottom-8 right-8" data-tip="Add Contato">
         <button
           className="btn btn-success text-white "
@@ -35,7 +35,7 @@ const AddButton: React.FC = () => {
           <button>close</button>
         </form>
       </dialog>
-    </div>
+    </>
   );
 };
 

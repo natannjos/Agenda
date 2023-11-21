@@ -6,11 +6,14 @@ const ContactForm: React.FC = () => {
   return (
     <>
       <Formik
-        initialValues={{ email: "", password: "" }}
+        initialValues={{ email: "", nome: "" }}
         validationSchema={Yup.object({
           email: Yup.string()
             .email("Email inválido")
             .required("Campo obrigatório"),
+          nome: Yup.string()
+            .required("Campo obrigatório")
+            .length(3, "O nome deve ter pelo menos 3 caracteres"),
         })}
         onSubmit={(values, { setSubmitting }) => {
           setTimeout(() => {
@@ -19,7 +22,7 @@ const ContactForm: React.FC = () => {
           }, 400);
         }}
       >
-        {({ isSubmitting, isValid, isInitialValid }) => (
+        {({ isSubmitting, isValid, errors }) => (
           <Form className="form-control flex flex-col gap-4 my-4 ">
             <div className="flex flex-col">
               <label htmlFor="email">Email</label>
@@ -28,7 +31,7 @@ const ContactForm: React.FC = () => {
                 name="email"
                 className={`input input-bordered ${
                   // on error the input border will be red
-                  isValid ? "input-success" : "input-error"
+                  errors.email ? "input-error" : "input-success"
                 }`}
                 placeholder="Informe o email"
               />
@@ -38,10 +41,29 @@ const ContactForm: React.FC = () => {
                 className="text-error"
               />
             </div>
+            <div className="flex flex-col">
+              <label htmlFor="nome">Nome</label>
+              <Field
+                type="text"
+                name="nome"
+                className={`input input-bordered ${
+                  // on error the input border will be red
+                  errors.nome ? "input-error" : "input-success"
+                }`}
+                placeholder="Informe o nome"
+              />
+              <ErrorMessage
+                name="nome"
+                component="div"
+                className="text-error"
+              />
+            </div>
             <div className="flex flex-row gap-2">
               <div className="tooltip" data-tip="Salvar">
                 <button
-                  className="btn btn-sm btn-success text-base-200"
+                  className={`btn text-base-200 ${
+                    isValid ? "btn-success" : "btn-disabled"
+                  }`}
                   type="submit"
                   disabled={isSubmitting}
                 >
