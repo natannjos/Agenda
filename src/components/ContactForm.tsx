@@ -1,8 +1,22 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { FaSave } from "react-icons/fa";
+import { Contact } from "@/interfaces/contact";
+import { useState } from "react";
 
-const ContactForm: React.FC = () => {
+const ContactForm = ({ contact }: { contact?: Contact }) => {
+  const emptyContact: Contact = {
+    email: "",
+    nome: "",
+    telefone: "",
+    endereco: "",
+    empresa: "",
+  };
+
+  const initialValues = contact ? contact : emptyContact;
+
+  const [formValues, setFormValues] = useState<Contact>(initialValues);
+
   return (
     <>
       <Formik
