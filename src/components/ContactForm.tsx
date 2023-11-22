@@ -13,7 +13,13 @@ const ContactForm: React.FC = () => {
             .required("Campo obrigatório"),
           nome: Yup.string()
             .required("Campo obrigatório")
-            .length(3, "O nome deve ter pelo menos 3 caracteres"),
+            .min(3, "O nome deve ter pelo menos 3 caracteres")
+            .max(255, "O nome deve ter no máximo 255 caracteres"),
+          telefone: Yup.string()
+            .required("Campo obrigatório")
+            .max(11, "Telefone deve ter no máximo 11 dígitos"),
+          endereco: Yup.string(),
+          empresa: Yup.string(),
         })}
         onSubmit={(values, { setSubmitting }) => {
           setTimeout(() => {
@@ -42,7 +48,7 @@ const ContactForm: React.FC = () => {
               />
             </div>
             <div className="flex flex-col">
-              <label htmlFor="nome">Nome</label>
+              <label htmlFor="nome">Nome Completo</label>
               <Field
                 type="text"
                 name="nome"
@@ -56,6 +62,44 @@ const ContactForm: React.FC = () => {
                 name="nome"
                 component="div"
                 className="text-error"
+              />
+            </div>
+            <div className="flex flex-col">
+              <label htmlFor="telefone">Telefone</label>
+              <Field
+                type="number"
+                name="telefone"
+                className={`input input-bordered ${
+                  errors.telefone ? "input-error" : "input-success"
+                }`}
+                placeholder="Informe o telefone"
+              />
+              <ErrorMessage
+                name="telefone"
+                component="div"
+                className="text-error"
+              />
+            </div>
+
+            {/* Campo de Endereço */}
+            <div className="flex flex-col">
+              <label htmlFor="endereco">Endereço</label>
+              <Field
+                type="text"
+                name="endereco"
+                className="input input-bordered"
+                placeholder="Informe o endereço"
+              />
+            </div>
+
+            {/* Campo de Empresa */}
+            <div className="flex flex-col">
+              <label htmlFor="empresa">Empresa</label>
+              <Field
+                type="text"
+                name="empresa"
+                className="input input-bordered"
+                placeholder="Informe a empresa"
               />
             </div>
             <div className="flex flex-row gap-2">
