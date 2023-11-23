@@ -37,7 +37,7 @@ const AddButton: React.FC = () => {
         </button>
       </div>
 
-      <dialog id="add_user_form" className="modal modal-bottom sm:modal-middle">
+      <dialog id="add_user_form" className="modal modal-middle">
         <div className="modal-box">
           <h3 className="font-bold text-lg">Adicione um novo contato</h3>
           <ContactForm clearForm={clearForm} onSubmit={closeModal} />
