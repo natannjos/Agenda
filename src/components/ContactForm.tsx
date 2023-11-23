@@ -7,9 +7,11 @@ import { useEffect, useRef } from "react";
 const ContactForm = ({
   clearForm = false,
   contactForEdit,
+  onClose,
 }: {
   clearForm?: boolean;
   contactForEdit?: Contact;
+  onClose?: () => void;
 }) => {
   const emptyContact: Contact = {
     email: "",
@@ -50,6 +52,7 @@ const ContactForm = ({
           alert(JSON.stringify(values, null, 2));
           setSubmitting(false);
           resetForm();
+          onClose && onClose();
         }, 400);
       }}
     >
