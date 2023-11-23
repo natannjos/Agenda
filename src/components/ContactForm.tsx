@@ -1,10 +1,10 @@
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, Field, ErrorMessage, FormikProps } from "formik";
 import * as Yup from "yup";
 import { FaSave } from "react-icons/fa";
 import { Contact } from "@/interfaces/contact";
-import { useState } from "react";
+import { useEffect, useRef } from "react";
 
-const ContactForm = ({ contact }: { contact?: Contact }) => {
+const ContactForm = ({ clearForm = false }: { clearForm?: boolean }) => {
   const emptyContact: Contact = {
     email: "",
     nome: "",
@@ -13,36 +13,43 @@ const ContactForm = ({ contact }: { contact?: Contact }) => {
     empresa: "",
   };
 
-  const initialValues = contact ? contact : emptyContact;
+  const formikRef = useRef<FormikProps<Contact> | null>(null);
 
-  const [formValues, setFormValues] = useState<Contact>(initialValues);
+  useEffect(() => {
+    console.log("clearForm", clearForm);
+    if (clearForm) {
+      formikRef.current?.resetForm();
+    }
+  }, [clearForm]);
 
   return (
-    <>
-      <Formik
-        initialValues={{ email: "", nome: "" }}
-        validationSchema={Yup.object({
-          email: Yup.string()
-            .email("Email inválido")
-            .required("Campo obrigatório"),
-          nome: Yup.string()
-            .required("Campo obrigatório")
-            .min(3, "O nome deve ter pelo menos 3 caracteres")
-            .max(255, "O nome deve ter no máximo 255 caracteres"),
-          telefone: Yup.string()
-            .required("Campo obrigatório")
-            .max(11, "Telefone deve ter no máximo 11 dígitos"),
-          endereco: Yup.string(),
-          empresa: Yup.string(),
-        })}
-        onSubmit={(values, { setSubmitting }) => {
-          setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
-            setSubmitting(false);
-          }, 400);
-        }}
-      >
-        {({ isSubmitting, isValid, errors }) => (
+    <Formik
+      innerRef={formikRef} // assign ref to formikRef to call resetForm outside Formik
+      initialValues={emptyContact}
+      validationSchema={Yup.object({
+        email: Yup.string()
+          .email("Email inválido")
+          .required("Campo obrigatório"),
+        nome: Yup.string()
+          .required("Campo obrigatório")
+          .min(3, "O nome deve ter pelo menos 3 caracteres")
+          .max(255, "O nome deve ter no máximo 255 caracteres"),
+        telefone: Yup.string()
+          .required("Campo obrigatório")
+          .max(11, "Telefone deve ter no máximo 11 dígitos"),
+        endereco: Yup.string(),
+        empresa: Yup.string(),
+      })}
+      onSubmit={(values, { setSubmitting, resetForm }) => {
+        setTimeout(() => {
+          alert(JSON.stringify(values, null, 2));
+          setSubmitting(false);
+          resetForm();
+        }, 400);
+      }}
+    >
+      {({ isSubmitting, isValid, errors }) => {
+        return (
           <Form className="form-control flex flex-col gap-4 my-4 ">
             <div className="flex flex-col">
               <label htmlFor="email">Email</label>
@@ -130,9 +137,9 @@ const ContactForm = ({ contact }: { contact?: Contact }) => {
               </div>
             </div>
           </Form>
-        )}
-      </Formik>
-    </>
+        );
+      }}
+    </Formik>
   );
 };
 

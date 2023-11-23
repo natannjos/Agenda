@@ -1,6 +1,5 @@
 "use client";
 import AddButton from "@/components/AddButton";
-import ContactForm from "@/components/ContactForm";
 import ContactList from "@/components/ContactList";
 import { Contact } from "@/interfaces/contact";
 import React from "react";
@@ -9,13 +8,13 @@ const Home: React.FC = () => {
   const contacts: Contact[] = [
     {
       id: 1,
-      name: "John Doe",
+      nome: "John Doe",
       email: "john@example.com",
       createdAt: new Date(),
     },
     {
       id: 2,
-      name: "Jane Smith",
+      nome: "Jane Smith",
       email: "jane@example.com",
       createdAt: new Date(),
     },
