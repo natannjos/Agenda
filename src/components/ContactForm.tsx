@@ -4,7 +4,13 @@ import { FaSave } from "react-icons/fa";
 import { Contact } from "@/interfaces/contact";
 import { useEffect, useRef } from "react";
 
-const ContactForm = ({ clearForm = false }: { clearForm?: boolean }) => {
+const ContactForm = ({
+  clearForm = false,
+  contactForEdit,
+}: {
+  clearForm?: boolean;
+  contactForEdit?: Contact;
+}) => {
   const emptyContact: Contact = {
     email: "",
     nome: "",
@@ -16,7 +22,6 @@ const ContactForm = ({ clearForm = false }: { clearForm?: boolean }) => {
   const formikRef = useRef<FormikProps<Contact> | null>(null);
 
   useEffect(() => {
-    console.log("clearForm", clearForm);
     if (clearForm) {
       formikRef.current?.resetForm();
     }
@@ -25,7 +30,7 @@ const ContactForm = ({ clearForm = false }: { clearForm?: boolean }) => {
   return (
     <Formik
       innerRef={formikRef} // assign ref to formikRef to call resetForm outside Formik
-      initialValues={emptyContact}
+      initialValues={contactForEdit || emptyContact}
       validationSchema={Yup.object({
         email: Yup.string()
           .email("Email inválido")
