@@ -6,12 +6,14 @@ import { useEffect, useRef } from "react";
 
 const ContactForm = ({
   clearForm = false,
-  contactForEdit,
-  onClose,
+  selectContact,
+  onSubmit,
+  onError,
 }: {
   clearForm?: boolean;
-  contactForEdit?: Contact;
-  onClose?: () => void;
+  selectContact?: Contact;
+  onSubmit?: () => void;
+  onError?: () => void;
 }) => {
   const emptyContact: Contact = {
     email: "",
@@ -32,7 +34,7 @@ const ContactForm = ({
   return (
     <Formik
       innerRef={formikRef} // assign ref to formikRef to call resetForm outside Formik
-      initialValues={contactForEdit || emptyContact}
+      initialValues={selectContact || emptyContact}
       validationSchema={Yup.object({
         email: Yup.string()
           .email("Email inválido")
@@ -52,7 +54,7 @@ const ContactForm = ({
           alert(JSON.stringify(values, null, 2));
           setSubmitting(false);
           resetForm();
-          onClose && onClose();
+          onSubmit && onSubmit();
         }, 400);
       }}
     >

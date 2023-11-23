@@ -40,7 +40,7 @@ const AddButton: React.FC = () => {
       <dialog id="add_user_form" className="modal modal-bottom sm:modal-middle">
         <div className="modal-box">
           <h3 className="font-bold text-lg">Adicione um novo contato</h3>
-          <ContactForm clearForm={clearForm} onClose={closeModal} />
+          <ContactForm clearForm={clearForm} onSubmit={closeModal} />
           <div className="modal-action">
             <form method="dialog">
               {/* if there is a button in form, it will close the modal */}
