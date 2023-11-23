@@ -19,7 +19,7 @@ const ContactList: React.FC<ContactListProps> = ({
         <tbody>
           {contacts.map((contact) => (
             <tr key={contact.id}>
-              <td>{contact.name}</td>
+              <td>{contact.nome}</td>
               <td>{contact.email}</td>
               <td>{contact.createdAt?.toLocaleDateString()}</td>
               <td className="flex gap-2">
