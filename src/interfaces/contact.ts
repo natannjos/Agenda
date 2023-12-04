@@ -7,7 +7,3 @@ export type Contact = {
   endereco?: string;
   empresa?: string;
 };
-
-export interface ContactListProps {
-  contacts: Contact[];
-}

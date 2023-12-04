@@ -1,5 +1,5 @@
 "use client";
-import AddButton from "@/components/AddButton";
+import ContactFormButton from "@/components/AddButton";
 import ContactList from "@/components/ContactList";
 import { Contact } from "@/interfaces/contact";
 import React from "react";
@@ -23,9 +23,16 @@ const Home: React.FC = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Minha Agenda</h1>
-      <ContactList contacts={contacts} />
-      <AddButton />
+      {contacts.length > 0 ? (
+        <>
+          <h1 className="text-2xl font-bold mb-4">Minha Agenda</h1>
+          <ContactList contacts={contacts} />
+          <ContactFormButton />
+        </>
+      ) : (
+        // TODO: Add a loading spinner
+        <h1 className="text-2xl font-bold mb-4">Carregando...</h1>
+      )}
     </div>
   );
 };

@@ -1,9 +1,7 @@
-import { ContactListProps } from "@/interfaces/contact";
+import { Contact } from "@/interfaces/contact";
 import { FaPencil, FaTrash } from "react-icons/fa6";
 
-const ContactList: React.FC<ContactListProps> = ({
-  contacts,
-}: ContactListProps) => {
+const ContactList = ({ contacts }: { contacts: Contact[] }) => {
   return (
     <div className="overflow-x-auto">
       <table className="table table-xs md:table-md table-zebra bg-base-100  ">
