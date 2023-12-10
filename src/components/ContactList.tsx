@@ -1,9 +1,19 @@
-import { Contact } from "@/interfaces/contact";
+import { IContact } from "@/interfaces/Contact";
 import { FaPencil, FaTrash } from "react-icons/fa6";
 
-const ContactList = ({ contacts }: { contacts: Contact[] }) => {
+const ContactList = ({ contacts }: { contacts: IContact[] }) => {
   return (
-    <div className="overflow-x-auto">
+    <div
+      className="overflow-x-auto 
+    w-11/12 
+    md:w-10/12
+    lg:w-9/12
+    xl:w-8/12
+    2xl:w-7/12
+    3xl:w-6/12
+    4xl:w-5/12
+     "
+    >
       <table className="table table-xs md:table-md table-zebra bg-base-100  ">
         {/* head */}
         <thead>
@@ -17,7 +27,7 @@ const ContactList = ({ contacts }: { contacts: Contact[] }) => {
         <tbody>
           {contacts.map((contact) => (
             <tr key={contact.id}>
-              <td>{contact.nome}</td>
+              <td className="font-bold">{contact.nome}</td>
               <td>{contact.email}</td>
               <td>{contact.createdAt?.toLocaleDateString()}</td>
               <td className="flex gap-2">

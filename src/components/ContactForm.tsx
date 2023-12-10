@@ -1,7 +1,7 @@
 import { Formik, Form, Field, ErrorMessage, FormikProps } from "formik";
 import * as Yup from "yup";
 import { FaSave } from "react-icons/fa";
-import { Contact } from "@/interfaces/contact";
+import { IContact } from "@/interfaces/Contact";
 import { useEffect, useRef } from "react";
 
 const ContactForm = ({
@@ -11,11 +11,11 @@ const ContactForm = ({
   onError,
 }: {
   clearForm?: boolean;
-  selectContact?: Contact;
+  selectContact?: IContact;
   onSubmit?: () => void;
   onError?: () => void;
 }) => {
-  const emptyContact: Contact = {
+  const emptyContact: IContact = {
     email: "",
     nome: "",
     telefone: "",
@@ -23,7 +23,7 @@ const ContactForm = ({
     empresa: "",
   };
 
-  const formikRef = useRef<FormikProps<Contact> | null>(null);
+  const formikRef = useRef<FormikProps<IContact> | null>(null);
 
   useEffect(() => {
     if (clearForm) {

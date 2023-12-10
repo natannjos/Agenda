@@ -1,9 +1,11 @@
 import { FaPlus } from "react-icons/fa6";
 import ContactForm from "./ContactForm";
 import { useState } from "react";
+import Toast from "./Toast";
 
 const AddButton: React.FC = () => {
   const [clearForm, setClearForm] = useState<boolean>(false);
+  const [showToast, setShowToast] = useState<boolean>(false);
 
   const closeModal = () => {
     const element = document.getElementById(
@@ -13,9 +15,15 @@ const AddButton: React.FC = () => {
       element.close();
     }
   };
-  const handleClose = () => {
+
+  const handleSubmit = () => {
     setClearForm(true);
     closeModal();
+    setShowToast(true);
+  };
+
+  const closeToast = () => {
+    setShowToast(false);
   };
 
   return (
@@ -37,16 +45,23 @@ const AddButton: React.FC = () => {
         </button>
       </div>
 
+      <Toast
+        message="Contato adicionado com sucesso!"
+        type="success"
+        show={showToast}
+        closeToast={closeToast}
+      />
+
       <dialog id="add_user_form" className="modal modal-middle">
         <div className="modal-box">
           <h3 className="font-bold text-lg">Adicione um novo contato</h3>
-          <ContactForm clearForm={clearForm} onSubmit={closeModal} />
+          <ContactForm clearForm={clearForm} onSubmit={handleSubmit} />
           <div className="modal-action">
             <form method="dialog">
               {/* if there is a button in form, it will close the modal */}
               <button
                 className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
-                onClick={handleClose}
+                onClick={handleSubmit}
               >
                 ✕
               </button>
@@ -54,7 +69,7 @@ const AddButton: React.FC = () => {
           </div>
         </div>
         <form method="dialog" className="modal-backdrop">
-          <button onClick={handleClose}></button>
+          <button onClick={handleSubmit}></button>
         </form>
       </dialog>
     </>

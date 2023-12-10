@@ -1,4 +1,4 @@
-export type Contact = {
+export type IContact = {
   id?: number;
   nome: string;
   email: string;

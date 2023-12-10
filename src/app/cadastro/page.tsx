@@ -1,17 +1,17 @@
 "use client";
-import Link from "next/link";
-import React from "react";
+import { IUser } from "@/interfaces/User";
 import { Formik, Form, Field, ErrorMessage, FormikProps } from "formik";
-
+import Link from "next/link";
+import { FaSave, FaArrowLeft } from "react-icons/fa";
 import * as Yup from "yup";
-import { useRouter } from "next/navigation";
 
-const Home: React.FC = () => {
-  const emptyUser = {
+const passwordRules = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}$/;
+const CadastroDeusuario = () => {
+  const emptyUser: IUser = {
     email: "",
+    nome: "",
     password: "",
   };
-  const router = useRouter();
   return (
     <div className="flex flex-col items-center justify-center h-full w-full ">
       <div className="hero min-h-screen bg-base-200">
@@ -24,18 +24,46 @@ const Home: React.FC = () => {
                   email: Yup.string()
                     .email("Email inválido")
                     .required("Campo obrigatório"),
-
-                  password: Yup.string().required("Campo obrigatório"),
+                  nome: Yup.string()
+                    .required("Campo obrigatório")
+                    .min(3, "O nome deve ter pelo menos 3 caracteres")
+                    .max(255, "O nome deve ter no máximo 255 caracteres"),
+                  password: Yup.string()
+                    .required("Campo obrigatório")
+                    .matches(passwordRules, {
+                      message:
+                        "A senha deve ter pelo menos 5 caracteres, uma letra maiúscula, uma letra minúscula e um número",
+                    }),
+                  confirmPassword: Yup.string()
+                    .oneOf([Yup.ref("password")], "As senhas não coincidem")
+                    .required("Campo obrigatório"),
                 })}
                 onSubmit={(values, { setSubmitting, resetForm }) => {
                   setTimeout(() => {
+                    alert(JSON.stringify(values, null, 2));
                     setSubmitting(false);
                     resetForm();
-                    router.push("/contatos");
                   }, 400);
                 }}
               >
                 <Form>
+                  <div className="form-control">
+                    <label className="label">
+                      <span className="label-text">Nome</span>
+                    </label>
+                    <Field
+                      type="text"
+                      placeholder="Nome"
+                      required
+                      className="input input-bordered"
+                      name="nome"
+                    />
+                    <ErrorMessage
+                      name="nome"
+                      component="span"
+                      className="text-red-500"
+                    />
+                  </div>
                   <div className="form-control">
                     <label className="label">
                       <span className="label-text">Email</span>
@@ -72,19 +100,39 @@ const Home: React.FC = () => {
                     />
                   </div>
 
+                  <div className="form-control">
+                    <label className="label">
+                      <span className="label-text">Confirmar Senha</span>
+                    </label>
+                    <Field
+                      type="password"
+                      placeholder="Confirmar Senha"
+                      required
+                      className="input input-bordered"
+                      name="confirmPassword"
+                    />
+                    <ErrorMessage
+                      name="confirmPassword"
+                      component="span"
+                      className="text-red-500"
+                    />
+                  </div>
+
                   <div className="form-control mt-6 gap-2">
                     <button
                       type="submit"
                       className="btn btn-success text-white"
                     >
-                      Login
+                      <FaSave className="mr-2" />
+                      Salvar
                     </button>
 
                     {/* voltar para o login */}
                     <div className="flex flex-row gap-2 h-full w-full">
-                      <Link href={"/cadastro"} className="btn">
+                      <Link href={"/"} className="btn">
                         <span className="flex flex-row h-full items-center">
-                          Cadastrar novo usuário
+                          <FaArrowLeft className="mr-2" />
+                          Voltar para o login
                         </span>
                       </Link>
                     </div>
@@ -99,4 +147,4 @@ const Home: React.FC = () => {
   );
 };
 
-export default Home;
+export default CadastroDeusuario;
